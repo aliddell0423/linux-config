@@ -1,0 +1,5 @@
+#!/bin/sh
+dir=$(ls ~/suckless | dmenu -i) &&
+file=$(ls ~/suckless/$dir | dmenu -i) &&
+emacs ~/suckless/$dir/$file &&
+xdotool key Super_L+4

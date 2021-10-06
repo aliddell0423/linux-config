@@ -1,0 +1,9 @@
+#! /usr/bin/sh
+
+user_input=$(zenity --entry --title "Enter the directory you would like to save playlist to")
+mkdir ~/Music/Youtube_music/user_input
+url=$( xclip -o -sel clip )
+youtube-dl -x --audio-format mp3 --prefer-ffmpeg --yes-playlist "$url" &&
+notify-send 'Download Successful'&&
+mv /home/ajliddell/*.mp3 /home/ajliddell/Music/Youtube_music/$user_input &&
+mega-sync

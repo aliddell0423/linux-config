@@ -1,0 +1,4 @@
+#! /bin/sh
+kill all dm-autocompile
+document=$(ls ~/latex_docs/*.tex | awk -F "/" '{print $5}' | dmenu -i)
+cd ~/latex_docs/; echo ~/latex_docs/$document | entr pdflatex ~/latex_docs/$document

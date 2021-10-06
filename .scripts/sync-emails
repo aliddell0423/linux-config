@@ -1,0 +1,5 @@
+#!/bin/sh
+mbsync -c /home/andrew/.config/mu4e-andrew/aliddell/mbsyncrc -a &&
+mbsync -c /home/andrew/.config/mu4e-andrew/mreggsaladsandvitch/mbsyncrc -a &&
+notify-email ;
+printf '' | xclip -selection clipboard

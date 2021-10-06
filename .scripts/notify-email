@@ -1,0 +1,40 @@
+#!/bin/sh
+# puts timestamps into an easily comparable format
+extract_timestamp() {
+   local RAW="$(echo "$1" | cut -c1-31)"
+   echo "$(date --date="$RAW" '+%Y-%m-%d:%H:%M:%S')"
+}
+
+# removes html characters that are interpreted poorly by dunst
+format_string() {
+   echo "$1" | sed 's/>/\&gt;/' | sed 's/</\&lt;/' | sed 's/\$/\\$/'
+}
+
+# locate the timestamp of the newest message
+NEWEST_PREFETCH_MSG="$(mu find -z 'date:today' | head -n 1)"
+NEWEST_PREFETCH_MSG_TIMESTAMP="$(extract_timestamp "$NEWEST_PREFETCH_MSG")"
+
+# reindex all emails using mu
+mu index
+
+# grab the newest ten emails that are created today and unread
+RECENT_TEN="$(mu find -z 'date:today' 'flag:unread' | head -n 10)"
+
+# maintain the last timestamp to prevent duplicates
+LAST_TIMESTAMP=""
+
+# iterate over each message
+while read -r msg; do
+  MSG_TIMESTAMP="$(extract_timestamp "$msg")"
+  # check if message is newer than previously newest message and not duplicate
+  if [ "$MSG_TIMESTAMP" \> "$NEWEST_PREFETCH_MSG_TIMESTAMP" ] &&
+     [ "$MSG_TIMESTAMP" != "$LAST_TIMESTAMP" ]; then
+    # emit a desktop notification with the email sender and subject
+    MSG_SENDER="$(echo "$msg" | sed -r 's/^.{32}//' | sed 's/>.*$/>/')"
+    MSG_SUBJECT="$(echo "$msg" | sed 's/^.*> //')"
+    # Emit proper notification when run as super user
+    #sudo -u gilbertw1 DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send "$(format_string "$MSG_SENDER")" "$(format_string "$MSG_SUBJECT")"
+    notify-send "$(format_string "$MSG_SENDER")" "$(format_string "$MSG_SUBJECT")"
+  fi;
+  LAST_TIMESTAMP="$MSG_TIMESTAMP"
+done <<< "$RECENT_TEN"

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+file=$(ls -p /home/andrew/Pictures/DesktopBackgrounds/ | grep -v / | shuf | head -1)
+xwallpaper --stretch /home/andrew/Pictures/DesktopBackgrounds/$file

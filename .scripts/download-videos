@@ -1,0 +1,6 @@
+#! /usr/bin/sh
+
+url=$( xclip -o -sel clip )
+youtube-dl "$url";
+notify-send 'Download Successful'
+mv /home/ajliddell/*.webm /home/ajliddell/Videos/youtube_dl/

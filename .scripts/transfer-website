@@ -1,0 +1,3 @@
+#! /usr/bin/python3
+import os
+os.system("rsync -ruv /home/ajliddell/website-dev/ andrew@192.168.0.35:/home/andrew/website-dev/")

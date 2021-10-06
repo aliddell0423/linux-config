@@ -1,0 +1,22 @@
+IMAPAccount gmail
+Host imap.gmail.com
+User mreggsaladsandvitch@gmail.com
+PassCmd "keepassxc-cli clip --attribute password --quiet --no-password --key-file ~/Passwords.key ~/Dropbox/Passwords.kdbx Main_Google_Account && xclip -o -selection clipboard | cat "
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore gmail-remote
+Account gmail
+
+MaildirStore gmail-local
+SubFolders Verbatim
+Path ~/Maildir/mreggsaladsandvitch/
+Inbox ~/Maildir/mreggsaladsandvitch/Inbox
+
+Channel gmail
+Far :gmail-remote:
+Near :gmail-local:
+Create Both
+Expunge Both
+SyncState *
+

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cd ~/suckless/dwm-andrew/; make clean; make; sudo make install; make clean;

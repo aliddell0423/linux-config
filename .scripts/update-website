@@ -1,0 +1,3 @@
+#! /usr/bin/sh
+rsync -ruv /home/ajliddell/website-dev/ root@ajliddell.xyz:/var/www/ajliddell/
+rsync -ruv /home/ajliddell/org-html-themes/ root@ajliddell.xyz:/home/ajliddell/org-html-themes

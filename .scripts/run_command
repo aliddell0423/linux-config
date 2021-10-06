@@ -1,0 +1,2 @@
+#!/bin/sh
+ls ~/watch/ | dmenu -p "Run Command" -i -c -bw 4 -l 20 -g 2 | xargs bash -c

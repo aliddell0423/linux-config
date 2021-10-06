@@ -1,0 +1,5 @@
+#! /usr/bin/sh
+
+url=$( xclip -o -sel clip )
+scraper.py -k --path="~/Pictures/DesktopBackgrounds/" $url &&
+notify-send 'Download Successful'

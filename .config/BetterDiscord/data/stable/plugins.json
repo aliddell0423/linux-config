@@ -1,0 +1,17 @@
+{
+    "ShowHiddenChannels": false,
+    "CallTimeCounter": true,
+    "SplitLargeMessages": true,
+    "InvisibleTyping": false,
+    "ImageUtilities": true,
+    "PermissionsViewer": true,
+    "TypingUsersAvatars": true,
+    "ZeresPluginLibrary": true,
+    "BetterFormattingRedux": false,
+    "BiggerStreamPreview": true,
+    "BDFDB": true,
+    "DoubleClickToEdit": true,
+    "DoNotTrack": true,
+    "AutoPlayGifs": false,
+    "FreeEmojis": false
+}

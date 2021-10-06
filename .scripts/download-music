@@ -1,0 +1,30 @@
+#! /usr/bin/sh
+
+# record your url then prompt you for the artist and album
+url=$( xclip -o -sel clip )
+dir=$( ls /home/andrew/Music/ | dmenu -i -p 'Select directory or create one' )    &&
+album=$( ls -a /home/andrew/Music/$dir | dmenu -i -p 'make an album' )            &&
+
+mkdir /home/andrew/Music/$dir                                                     ;
+mkdir /home/andrew/Music/$dir/$album                                              ;
+
+# can dl both playlists and bypass walls due to cookies file
+youtube-dl --get-filename -x -i --audio-format mp3 --prefer-ffmpeg \
+    --cookies=/home/andrew/.scripts/newcookiefile.txt \
+    -o "%(autonumber)s-%(title)s.%(ext)s" --yes-playlist "$url" > $album          &&
+
+youtube-dl -x -i --audio-format mp3 --prefer-ffmpeg \
+    --cookies=/home/andrew/.scripts/newcookiefile.txt \
+    -o "%(autonumber)s-%(title)s.%(ext)s" --yes-playlist "$url"                   &&
+
+# will move all files to specified dir and notify you of success
+notify-send 'Download Successful'                                                 &&
+
+sed -ri 's/(\")//g' $album                                              ;
+sed -ri 's/('\'')//g' $album                                              ;
+sed -ri 's/(^)|($)/"/g' $album                                                    ;
+sed -ri 's/(m4a)|(webm)/mp3/g' $album                                             ;
+
+cat ~/$album | xargs mv -t ~/Music/$dir/$album                                    ;
+rm ~/$album                                                                       ;
+mega-sync

@@ -1,0 +1,3 @@
+#!/bin/sh
+app=$( cat /home/andrew/.scripts/term-apps | dmenu -i )
+st -e $app

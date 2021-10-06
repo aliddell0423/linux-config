@@ -1,0 +1,18 @@
+#!/bin/sh
+
+entry=$(keepassxc-cli ls \
+        --no-password \
+        -k ~/Passwords.key ~/Dropbox/Passwords.kdbx | dmenu -i -c -bw 4 -l 20 -g 2 ) &&
+
+keepassxc-cli clip \
+    --attribute password \
+    --no-password \
+    --key-file ~/Passwords.key ~/Dropbox/Passwords.kdbx $entry &&
+
+notify-send 'Password copied! You have 30 seconds to use it';
+
+sleep 30 &&
+
+printf '' | xclip -selection clipboard;
+
+notify-send 'Clipboard cleared!'

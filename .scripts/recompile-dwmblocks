@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cd ~/suckless/dwmblocks/; make clean; make; sudo make install; make clean; rm blocks.h

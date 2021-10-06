@@ -1,0 +1,22 @@
+IMAPAccount gmail
+Host imap.gmail.com
+User ajl496
+PassCmd "gpg2 -q --for-your-eyes-only --no-tty -d ~/.config/mu4e-andrew/mbsyncpass-ajl496.gpg"
+SSLType IMAPS
+AuthMechs LOGIN
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore gmail-remote
+Account gmail
+
+MaildirStore gmail-local
+Subfolders Verbatim
+Path ~/Maildir/ajl496/
+Inbox ~/Maildir/ajl496/Inbox
+
+Channel gmail
+Far :gmail-remote:
+Near :gmail-local:
+Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail" "[Gmail]/Trash"
+Create Both
+SyncState *
